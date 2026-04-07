@@ -1,8 +1,32 @@
 {
   "float": [
     {
-      "name": "page_text_font_size",
-      "value": "50fp"
+      "name": "title_font_size",
+      "value": "18fp"
+    },
+    {
+      "name": "subtitle_font_size",
+      "value": "14fp"
+    },
+    {
+      "name": "body_font_size",
+      "value": "14fp"
+    },
+    {
+      "name": "small_font_size",
+      "value": "12fp"
+    },
+    {
+      "name": "button_height",
+      "value": "44vp"
+    },
+    {
+      "name": "button_font_size",
+      "value": "14fp"
+    },
+    {
+      "name": "icon_size",
+      "value": "40vp"
     }
   ]
 }

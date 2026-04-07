@@ -2,15 +2,75 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "Kokology Game for HarmonyOS Wearable"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "Explore your personality through psychological questions."
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "Kokology"
+    },
+    {
+      "name": "app_name",
+      "value": "Kokology Game"
+    },
+    {
+      "name": "home_description",
+      "value": "Dive into your personality. 6 categories, 5 questions each. Choose one below."
+    },
+    {
+      "name": "result_title",
+      "value": "Your Kokology Result"
+    },
+    {
+      "name": "go_home",
+      "value": "Go to Home Page"
+    },
+    {
+      "name": "loading_questions",
+      "value": "Loading questions..."
+    },
+    {
+      "name": "category_1",
+      "value": "Imagination & Creativity"
+    },
+    {
+      "name": "category_2",
+      "value": "Emotions & Inner Feelings"
+    },
+    {
+      "name": "category_3",
+      "value": "Relationships & Love"
+    },
+    {
+      "name": "category_4",
+      "value": "Decision & Adventure"
+    },
+    {
+      "name": "category_5",
+      "value": "Fear & Subconscious Mind"
+    },
+    {
+      "name": "category_6",
+      "value": "Self-Discovery & Dreams"
+    },
+    {
+      "name": "history_title",
+      "value": "Your Journey"
+    },
+    {
+      "name": "view_history",
+      "value": "View Past Insights"
+    },
+    {
+      "name": "no_history",
+      "value": "No history yet. Start a quiz!"
+    },
+    {
+      "name": "clear_history",
+      "value": "Clear All"
     }
   ]
 }
