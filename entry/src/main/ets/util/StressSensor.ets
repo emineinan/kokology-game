@@ -8,7 +8,7 @@ export class StressSensor {
   static async requestPermission(context: common.Context): Promise<boolean> {
     let atManager = abilityAccessCtrl.createAtManager();
     try {
-      let data = await atManager.requestPermissionsFromUser(context, ['ohos.permission.HEALTH_DATA_HEALTH_RATE_READ']);
+      let data = await atManager.requestPermissionsFromUser(context, ['ohos.permission.READ_HEALTH_DATA']);
       if (data.authResults[0] === 0) {
         return true;
       }
