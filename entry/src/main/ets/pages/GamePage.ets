@@ -3,7 +3,6 @@ import { ResultParam } from '../model/ResultParam';
 import { category_names } from '../util/Categories';
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { HapticFeedback } from '../util/HapticFeedback';
-import { StressSensor } from '../util/StressSensor';
 
 @Component
 export struct GamePage {
@@ -68,17 +67,12 @@ export struct GamePage {
       .height('100%')
       .backgroundColor($r('app.color.background_black'))
     }
-    .onReady(async (ctx: NavDestinationContext) => {
+    .onReady((ctx: NavDestinationContext) => {
       this.pageStack = ctx.pathStack;
       const categoryId = ctx.pathInfo.param as number;
       this.categoryIdTitle = categoryId;
 
       this.loadQuestions(categoryId);
-
-      const hasPermission = await StressSensor.requestPermission(getContext(this));
-      if (hasPermission) {
-        StressSensor.startMonitoring();
-      }
     })
     .hideBackButton(true)
   }

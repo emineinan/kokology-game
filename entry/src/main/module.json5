@@ -49,16 +49,6 @@
     "requestPermissions": [
       {
         "name": "ohos.permission.VIBRATE"
-      },
-      {
-        "name": "ohos.permission.READ_HEALTH_DATA",
-        "reason": "$string:reason_heart_rate",
-        "usedScene": {
-          "abilities": [
-            "EntryAbility"
-          ],
-          "when": "inuse"
-        }
       }
     ]
   }

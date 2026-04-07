@@ -23,19 +23,14 @@
 - Users can now revisit their past psychological insights and track their journey over time.
 - Integrated a new `HistoryPage` to view and manage past results.
 
-### 5. ❤️ Stress-Aware Context (Sensor Kit)
-- **Heart Rate Integration:** The app now requests permission to monitor heart rate during the quiz.
-- Provides additional context on the `ResultPage`, indicating if the choices were made in a "calm" or "excited" state.
-
 ## Technology Stack
 
 - **Languages**: ArkTS, ArkUI
 - **Frameworks**: HarmonyOS SDK 5.1.1
 - **Kits Integrated**:
     - `@kit.ArkUI`: Modern declarative UI and navigation.
-    - `@kit.SensorServiceKit`: Haptics (Vibrator) and Stress context (Heart Rate).
+    - `@kit.SensorServiceKit`: Haptics (Vibrator).
     - `@kit.ArkData`: Persistent storage (Preferences).
-    - `@kit.AbilityKit`: Permission management.
 
 ## Directory Structure
 
@@ -45,7 +40,7 @@ KokologyGame
 | |--- model/          # Data models
 | |--- viewmodel/      # MVVM Logic
 | |--- pages/          # UI Pages (HomePage, GamePage, ResultPage, HistoryPage)
-| |--- util/           # Utilities (Haptics, Storage, Sensors)
+| |--- util/           # Utilities (Haptics, Storage)
 | |--- resources/      # Centralized strings, colors, and dimensions
 ```
 

@@ -4,7 +4,6 @@ import { category_names } from '../util/Categories';
 import { ResultViewModel } from '../viewmodel/ResultViewModel';
 import { HapticFeedback } from '../util/HapticFeedback';
 import { HistoryStore, HistoryItem } from '../util/HistoryStore';
-import { StressSensor } from '../util/StressSensor';
 
 @Component
 export struct ResultPage {
@@ -13,7 +12,6 @@ export struct ResultPage {
   @State answers: string[] = [];
   @State category: number = 0;
   @State finalResult: string = '';
-  @State stressNote: Resource | string = '';
   private scroller: Scroller = new Scroller();
 
   build() {
@@ -35,19 +33,9 @@ export struct ResultPage {
             Text(this.finalResult)
               .fontColor($r('app.color.body_text'))
               .fontSize($r('app.float.body_font_size'))
-              .margin({ top: 12, bottom: 10 })
+              .margin({ top: 12, bottom: 20 })
               .width('85%')
               .textAlign(TextAlign.Center)
-
-            if (this.stressNote) {
-              Text(this.stressNote)
-                .fontColor(Color.Orange)
-                .fontSize(10)
-                .fontStyle(FontStyle.Italic)
-                .margin({ bottom: 10 })
-                .width('80%')
-                .textAlign(TextAlign.Center)
-            }
 
             Button($r('app.string.go_home'))
               .onClick(() => {
@@ -98,10 +86,6 @@ export struct ResultPage {
       }
 
       this.finalResult = (countA > countB) ? resultModel.resultA : resultModel.resultB;
-
-      const isStressed = StressSensor.getIsStressed();
-      this.stressNote = isStressed ? $r('app.string.stress_excited') : $r('app.string.stress_calm');
-      StressSensor.stopMonitoring();
 
       // Archive the result
       const historyItem: HistoryItem = {

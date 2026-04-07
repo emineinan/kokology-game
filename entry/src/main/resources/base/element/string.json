@@ -71,18 +71,6 @@
     {
       "name": "clear_history",
       "value": "Clear All"
-    },
-    {
-      "name": "reason_heart_rate",
-      "value": "We check your heart rate to provide context on your stress levels during the psychological quiz."
-    },
-    {
-      "name": "stress_calm",
-      "value": "Note: You seemed very calm while making these choices."
-    },
-    {
-      "name": "stress_excited",
-      "value": "Note: Your choices were made during a moment of high focus or excitement."
     }
   ]
 }
