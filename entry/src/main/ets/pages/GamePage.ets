@@ -1,7 +1,9 @@
 import GameModel from '../model/GameModel';
 import { ResultParam } from '../model/ResultParam';
-import { categories } from '../util/Categories';
+import { category_names } from '../util/Categories';
 import { GameViewModel } from '../viewmodel/GameViewModel';
+import { HapticFeedback } from '../util/HapticFeedback';
+import { StressSensor } from '../util/StressSensor';
 
 @Component
 export struct GamePage {
@@ -9,97 +11,97 @@ export struct GamePage {
   private viewModel: GameViewModel = new GameViewModel();
   @State currentQuestionList: Array<GameModel> = [];
   @State currentIndex: number = 0;
-  private selectedAnswer: string = '';
   @State selectedAnswers: string[] = [];
-  private categoryIdTitle: number = 0;
+  @State categoryIdTitle: number = 0;
 
   build() {
     NavDestination() {
       Column() {
-        Text('Kokology Game')
-          .fontColor('#FFE082')
-          .fontSize(16)
-          .fontWeight(FontWeight.Bolder)
-          .margin({ top: 4 })
-
-        Text(categories[this.categoryIdTitle])
-          .fontColor('#90CAF9')
-          .fontSize(12)
-          .margin({ top: 10 })
+        Text(category_names[this.categoryIdTitle])
+          .fontColor($r('app.color.secondary_text'))
+          .fontSize($r('app.float.subtitle_font_size'))
+          .margin({ top: 20, bottom: 10 })
+          .textAlign(TextAlign.Center)
+          .width('90%')
 
         if (this.currentQuestionList.length > 0) {
-          Text(`Q${this.currentIndex + 1}. ${this.currentQuestionList[this.currentIndex].question}`)
-            .fontSize(9)
-            .fontWeight(FontWeight.Medium)
-            .fontColor('#EEEEEE')
-            .margin({ top: 16, bottom: 8 })
-            .width('85%')
-            .textAlign(TextAlign.Center)
+          Scroll() {
+            Column() {
+              Text(`Q${this.currentIndex + 1}. ${this.currentQuestionList[this.currentIndex].question}`)
+                .fontSize($r('app.float.body_font_size'))
+                .fontWeight(FontWeight.Medium)
+                .fontColor($r('app.color.body_text'))
+                .margin({ bottom: 20 })
+                .width('85%')
+                .textAlign(TextAlign.Center)
 
-          Button(this.currentQuestionList[this.currentIndex].optionA)
-            .width('65%')
-            .height(30)
-            .fontSize(9)
-            .backgroundColor('#2979FF')
-            .fontColor(Color.White)
-            .shadow({ radius: 6 })
-            .onClick(() => this.handleAnswer('A'))
+              Button(this.currentQuestionList[this.currentIndex].optionA)
+                .width('80%')
+                .height($r('app.float.button_height'))
+                .fontSize($r('app.float.button_font_size'))
+                .backgroundColor($r('app.color.btn_primary'))
+                .fontColor(Color.White)
+                .margin({ bottom: 12 })
+                .onClick(() => this.handleAnswer('A'))
 
-          Button(this.currentQuestionList[this.currentIndex].optionB)
-            .width('65%')
-            .height(30)
-            .fontSize(9)
-            .backgroundColor('#00C853')
-            .fontColor(Color.White)
-            .shadow({ radius: 6 })
-            .margin({ top: 10 })
-            .onClick(() => this.handleAnswer('B'))
+              Button(this.currentQuestionList[this.currentIndex].optionB)
+                .width('80%')
+                .height($r('app.float.button_height'))
+                .fontSize($r('app.float.button_font_size'))
+                .backgroundColor($r('app.color.btn_success'))
+                .fontColor(Color.White)
+                .onClick(() => this.handleAnswer('B'))
+            }
+            .width('100%')
+            .padding({ bottom: 20 })
+          }
+          .scrollBar(BarState.Off)
+          .layoutWeight(1)
         } else {
-          Text('Loading questions...')
-            .fontSize(12)
+          Text($r('app.string.loading_questions'))
+            .fontSize($r('app.float.body_font_size'))
             .fontColor(Color.Gray)
         }
       }
       .alignItems(HorizontalAlign.Center)
-      .justifyContent(FlexAlign.Center)
       .width('100%')
       .height('100%')
-      .backgroundColor('#0D0D0D')
+      .backgroundColor($r('app.color.background_black'))
     }
-    .onReady((ctx: NavDestinationContext) => {
+    .onReady(async (ctx: NavDestinationContext) => {
       this.pageStack = ctx.pathStack;
       const categoryId = ctx.pathInfo.param as number;
       this.categoryIdTitle = categoryId;
 
-      if (categoryId === 0) {
-        this.currentQuestionList =
-          this.viewModel.getkokologyQuestionsCategory1();
-      } else if (categoryId === 1) {
-        this.currentQuestionList =
-          this.viewModel.getkokologyQuestionsCategory2();
-      } else if (categoryId === 2) {
-        this.currentQuestionList =
-          this.viewModel.getkokologyQuestionsCategory3();
-      } else if (categoryId === 3) {
-        this.currentQuestionList =
-          this.viewModel.getkokologyQuestionsCategory4();
-      } else if (categoryId === 4) {
-        this.currentQuestionList =
-          this.viewModel.getkokologyQuestionsCategory5();
-      } else if (categoryId === 5) {
-        this.currentQuestionList =
-          this.viewModel.getkokologyQuestionsCategory6();
+      this.loadQuestions(categoryId);
+
+      const hasPermission = await StressSensor.requestPermission(getContext(this));
+      if (hasPermission) {
+        StressSensor.startMonitoring();
       }
     })
     .hideBackButton(true)
   }
 
+  loadQuestions(categoryId: number) {
+    switch (categoryId) {
+      case 0: this.currentQuestionList = this.viewModel.getkokologyQuestionsCategory1(); break;
+      case 1: this.currentQuestionList = this.viewModel.getkokologyQuestionsCategory2(); break;
+      case 2: this.currentQuestionList = this.viewModel.getkokologyQuestionsCategory3(); break;
+      case 3: this.currentQuestionList = this.viewModel.getkokologyQuestionsCategory4(); break;
+      case 4: this.currentQuestionList = this.viewModel.getkokologyQuestionsCategory5(); break;
+      case 5: this.currentQuestionList = this.viewModel.getkokologyQuestionsCategory6(); break;
+    }
+  }
+
   handleAnswer(option: string) {
+    HapticFeedback.playClick();
     this.selectedAnswers.push(option);
 
     if (this.currentIndex < this.currentQuestionList.length - 1) {
       this.currentIndex++;
     } else {
+      HapticFeedback.playSuccess();
       const paramObj: ResultParam = {
         answers: this.selectedAnswers,
         category: this.categoryIdTitle

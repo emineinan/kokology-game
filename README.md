@@ -1,85 +1,55 @@
-> **Note:** To access all shared projects, get information about environment setup, and view other guides, please visit [Explore-In-HMOS-Wearable Index](https://github.com/Explore-In-HMOS-Wearable/hmos-index).
+# Kokology Game - Modernized for HarmonyOS Wearable
 
-# Kokology Game
+**Kokology Game** is a HarmonyOS-based wearable application that explores personality through psychological questions and imagination-based choices. This fork significantly upgrades the original project with modern ArkUI standards and deep wearable hardware integration.
 
-**Kokology Game** is a HarmonyOS-based wearable application that explores personality through psychological questions
-and imagination-based choices.  
-It presents **6 unique categories**, each containing **5 questions** designed to reveal subconscious traits based on
-user selections.
+## Major Enhancements
 
-This app demonstrates essential HarmonyOS features such as:
+### 1. ⌚ Wearable-First UI Design
+- **Redesigned Layouts:** Replaced manual positioning with a clean, list-based `HomePage` that adapts perfectly to circular smartwatch screens.
+- **Improved Glanceability:** Increased font sizes (`14fp` - `18fp`) and touch targets (`44vp` button height) for better accessibility and readability.
+- **Resource Modernization:** Fully migrated hardcoded strings and colors to HarmonyOS resource files (`string.json`, `color.json`, `float.json`).
 
-- Page navigation with parameters
-- State management using `@State`, `@Consume`, `@Provide`
-- MVVM architecture with model & view model usage
-- Dynamic list rendering with `ForEach`
-- Custom UI for wearable devices
+### 2. 📳 Tactile Choice Engine (Haptics)
+- Integrated `@kit.SensorServiceKit` (Vibrator) to provide physical confirmation for every choice.
+- **Short clicks** for navigation and answer selection.
+- **Success vibration** upon completing a quiz category.
 
-# Preview
+### 3. 👑 Digital Crown Navigation
+- Support for physical crown scrolling in `HomePage`, `HistoryPage`, and `ResultPage`.
+- Components are properly focused to ensure a seamless "touchless" experience.
 
-<div>
-<img src="screenshots/1.png" width="25%" />
-<img src="screenshots/2.png" width="25%" />
-<img src="screenshots/3.png" width="25%" />
-</div>
+### 4. 🗄️ Personality Archive (Persistent Storage)
+- Added a **History** feature using `@kit.ArkData` (Preferences).
+- Users can now revisit their past psychological insights and track their journey over time.
+- Integrated a new `HistoryPage` to view and manage past results.
 
-# Use Cases
+### 5. ❤️ Stress-Aware Context (Sensor Kit)
+- **Heart Rate Integration:** The app now requests permission to monitor heart rate during the quiz.
+- Provides additional context on the `ResultPage`, indicating if the choices were made in a "calm" or "excited" state.
 
-- **Personality Quiz**: Each category analyzes a different psychological aspect.
-- **A/B Choice System**: Users select between two answers per question.
-- **Result Evaluation**: Final personality results are shown dynamically based on choices.
-- **Data Transfer with Models**: Safe navigation using `ResultParam` and `GameModel`.
-
-# Technology
-
-## Stack
+## Technology Stack
 
 - **Languages**: ArkTS, ArkUI
-- **Frameworks**: HarmonyOS SDK 5.1.0
-- **Tools**: DevEco Studio 5.1.0
-- **Libraries**:
-    - @kit.ArkUI
+- **Frameworks**: HarmonyOS SDK 5.1.1
+- **Kits Integrated**:
+    - `@kit.ArkUI`: Modern declarative UI and navigation.
+    - `@kit.SensorServiceKit`: Haptics (Vibrator) and Stress context (Heart Rate).
+    - `@kit.ArkData`: Persistent storage (Preferences).
+    - `@kit.AbilityKit`: Permission management.
 
-## Required Permissions
+## Directory Structure
 
-- No need permission.
-
-# Directory Structure
-
-``` 
+```
 KokologyGame
 |--- entry/src/main/ets/
-| |--- model/
-| | |--- GameModel.ets
-| | |--- ResultModel.ets
-| | |--- ResultParam.ets
-| |
-| |--- viewmodel/
-| | |--- GameViewModel.ets
-| | |--- ResultViewModel.ets
-| |
-| |--- pages/
-| | |--- HomePage.ets
-| | |--- GamePage.ets
-| | |--- ResultPage.ets
-| | |--- Index.ets
-| |
-| |--- util/
-| | |--- Categories.ets
-| | |--- GameData.ets
-| | |--- ResultData.ets
-| |
-| |--- resources/
-| |--- screenshots/
-``` 
+| |--- model/          # Data models
+| |--- viewmodel/      # MVVM Logic
+| |--- pages/          # UI Pages (HomePage, GamePage, ResultPage, HistoryPage)
+| |--- util/           # Utilities (Haptics, Storage, Sensors)
+| |--- resources/      # Centralized strings, colors, and dimensions
+```
 
-# Constraints and Restrictions
-
-## Supported Device
-
-- Huawei Watch 5
-
-# License
+## License
 
 **Kokology Game** is distributed under the terms of the MIT License.
 See the [license](/LICENSE) for more information.

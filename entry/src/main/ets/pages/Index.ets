@@ -1,3 +1,4 @@
+import { HistoryPage } from './HistoryPage';
 import { GamePage } from './GamePage';
 import { HomePage } from './HomePage';
 import { ResultPage } from './ResultPage';
@@ -15,6 +16,8 @@ struct Index {
       GamePage()
     } else if (name === 'ResultPage') {
       ResultPage()
+    } else if (name === 'HistoryPage') {
+      HistoryPage()
     }
   }
 

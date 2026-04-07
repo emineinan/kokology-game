@@ -45,6 +45,21 @@
           }
         ],
       }
+    ],
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.VIBRATE"
+      },
+      {
+        "name": "ohos.permission.HEALTH_DATA_HEALTH_RATE_READ",
+        "reason": "$string:reason_heart_rate",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "inuse"
+        }
+      }
     ]
   }
 }
